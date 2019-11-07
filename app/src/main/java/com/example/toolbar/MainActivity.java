@@ -1,10 +1,9 @@
 package com.example.toolbar;
 
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Picture;
 import android.net.ConnectivityManager;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,13 +36,16 @@ public class MainActivity extends AppCompatActivity {
     private EditText searchText;
     private ArrayList<Picture> lista = new ArrayList<>();
     private Adapter adapter;
-    private ListView listView;
 
+    SQLiteDatabase sqLiteDatabase;
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Tietokanta.Builder<Tietokanta> kanta=Tietokanta.databaseBuilder(getApplicationContext(), Tietokanta.class (String) Tietokanta.NIMI);
         adapter = new Adapter(this, R.layout.list, lista);
         ListView listview = findViewById(R.id.listView);
         listview.setAdapter(adapter);
@@ -115,10 +116,10 @@ public class MainActivity extends AppCompatActivity {
     public void getDataFromResponse (JSONObject response) throws JSONException {
 
         Gson gson = new Gson();
-
-        Picture pict = gson.fromJson(response.toString(), Picture.class);
+        Picture pict= gson.fromJson(response.toString()Pict.class);
 
         lista.add(pict);
+
         adapter.notifyDataSetChanged();
 
         Toast.makeText(context, "Data loaded", Toast.LENGTH_SHORT).show();

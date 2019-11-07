@@ -2,11 +2,7 @@ package com.example.toolbar;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Picture;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Adapter extends ArrayAdapter<Picture> {
@@ -62,6 +57,7 @@ public class Adapter extends ArrayAdapter<Picture> {
         viewHolder.textViewName.setText("License: " + itemList.get(position));
         viewHolder.textViewUrl.setText("Owner: " + itemList.get(position));
 
+        Picasso.get().load(itemList.get(position).getUrl()).into(viewHolder.imgView);
 
         return convertView;
 
